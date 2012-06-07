@@ -36,7 +36,6 @@ function loadImgurAlbum (callback) {
 		    path: '/2/album/' + imguralbum + ".json",
 		    method: 'GET'
 		  };
-		console.log(options)
 		http.get(options, function(res){
 		    var data = '';
 
@@ -68,6 +67,7 @@ app.get('/img', function (req, resp) {
 	loadImgurAlbum(function (album) {
 		var urls = processAlbum(album),
 			random = urls[Math.floor(Math.random() * urls.length)];
+		resp.setHeader("Content-Type", "text/plain");
 		resp.end(random);
 	})
 })
