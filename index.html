@@ -50,6 +50,7 @@
 						row.removeClass('preloaded');
 						row = $("<div class='imgrow preloaded'></div>");
 						$body.append(row);
+						$('.header').remove();
 						sumwidth = parseFloat($image.attr('data-width'))
 					}
 					row.append(image);
@@ -64,6 +65,7 @@
 						$('body').append(image);
 						$('img').load(reflow)
 					} else {
+						console.log("skipped", data)
 						moar();
 					}
 				})
@@ -83,5 +85,7 @@
 		</style>
 	</head>
 	<body>
+	<h1 class="header">Hold your horses!</h1>
+	<h2 class="header">We're loading things...</h2>
 	</body>
 </html>
