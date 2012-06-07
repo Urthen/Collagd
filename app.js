@@ -5,7 +5,7 @@ var express = require("express"),
 // Setup Express Application
 var app = express.createServer(),
 	imgurkey = '7d959347242311e94fcc60f761e9e373',
-	imguralbum = 'http://api.imgur.com/2/album/onzUR.json',
+	imguralbum = 'onzUR',
 	refreshTime = 1000 * 60 * 5,
 	albumData, albumRefreshed;
 
@@ -31,11 +31,12 @@ app.get('/', function(req, resp){
 function loadImgurAlbum (callback) {
 	if (!albumData || (albumRefreshed && Date.now() - albumRefreshed > refreshTime)) {
 		var options = {
-		    host: imguralbum,
+		    host: 'api.imgur.com',
 		    port: 80,
-		    path: '/',
+		    path: '/2/album/' + imguralbum + ".json",
 		    method: 'GET'
 		  };
+		console.log(options)
 		http.get(options, function(res){
 		    var data = '';
 
@@ -44,7 +45,6 @@ function loadImgurAlbum (callback) {
 		    });
 
 		    res.on('end',function(){
-		    	console.log(data);
 		        albumData = JSON.parse(data);
 		        albumRefreshed = Date.now();
 		        callback(albumData)
@@ -67,8 +67,8 @@ function processAlbum (album) {
 app.get('/img', function (req, resp) {
 	loadImgurAlbum(function (album) {
 		var urls = processAlbum(album),
-			random = urls[Math.floor(Math.random() * files.length)];
-		resp.end("butts" + random);
+			random = urls[Math.floor(Math.random() * urls.length)];
+		resp.end(random);
 	})
 })
 
