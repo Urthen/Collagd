@@ -30,8 +30,8 @@ exports.boot = function (app, config) {
 	});
 
 	app.configure('production', function(){
-		app.use(gzippo.staticGzip(__dirname + '/../static/'))
+		app.use(gzippo.staticGzip(__dirname + '/../static/'));
 		app.use(express.errorHandler());
-		app.enable('view cache')
+		app.enable('view cache');
 	});
 };

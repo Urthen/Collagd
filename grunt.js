@@ -35,63 +35,15 @@ module.exports = function(grunt) {
       }
     },
 
-    // The jst task compiles all application templates into JavaScript
-    // functions with the underscore.js template function from 1.2.4.  You can
-    // change the namespace and the template options, by reading this:
-    // https://github.com/tbranyen/build-tasks/tree/master/jst
-    //
-    // The concat task depends on this file to exist, so if you decide to
-    // remove this, ensure concat is updated accordingly.
-    jst: {
-      "client/dist/debug/tmpls/templates.js": [
-        "client/source/app/templates/**/*.html"
-      ]
-    },
-
-    // The concatenate task is used here to merge the almond require/define
-    // shim and the templates into the application code.  It's named
-    // dist/debug/require.js, because we want to only load one script file in
-    // index.html.
-    concat: {
-      "client/dist/debug/js/require.js": [
-        "assets/js/libs/almond.js",
-        "dist/debug/tmpl/templates.js",
-        "dist/debug/js/require.js"
-      ]
-    },
-
     // This task uses the MinCSS Node.js project to take all your CSS files in
     // order and concatenate them into a single CSS file named index.css.  It
     // also minifies all the CSS as well.  This is named index.css, because we
     // only want to load one stylesheet in index.html.
     mincss: {
-      "client/dist/release/css/index.css": [
-        "client/source/assets/css/style.css"
+      "client/assets/css/index.min.css": [
+        "client/assets/css/style.css"
       ]
     },
-
-    // Takes the built require.js file and minifies it for filesize benefits.
-    min: {
-      "client/dist/release/js/require.js": [
-        "client/dist/debug/js/require.js"
-      ]
-    },
-
-    // This task uses James Burke's excellent r.js AMD build tool.  In the
-    // future other builders may be contributed as drop-in alternatives.
-    requirejs: {
-      // Include the main configuration file
-      mainConfigFile: "client/source/app/config.js",
-
-      // Output file
-      out: "client/dist/debug/js/require.js",
-
-      // Root application module
-      name: "config",
-
-      // Do not wrap everything in an IIFE
-      wrap: false
-    }
 
   });
 
@@ -100,7 +52,7 @@ module.exports = function(grunt) {
   // dist/debug/templates.js, compile all the application code into
   // dist/debug/require.js, and then concatenate the require/define shim
   // almond.js and dist/debug/templates.js into the require.js file.
-  grunt.registerTask("default", "clean lint jst requirejs concat");
+  grunt.registerTask("default", "clean lint");
 
   // The debug task is simply an alias to default to remain consistent with
   // debug/release.
@@ -108,6 +60,6 @@ module.exports = function(grunt) {
 
   // The release task will run the debug tasks and then minify the
   // dist/debug/require.js file and CSS files.
-  grunt.registerTask("release", "default min mincss");
+  grunt.registerTask("release", "default mincss");
 
 };
