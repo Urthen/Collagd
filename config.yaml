@@ -13,7 +13,7 @@ staging:
     db: "gifs-stg"
     port: 27017
 production:
-  salt:
+  security:
     salt: "gliffy"
   db:
     hostname: "ds033767.mongolab.com"
