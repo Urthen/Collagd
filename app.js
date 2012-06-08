@@ -7,7 +7,7 @@ var app = express.createServer(),
 	imgurkey = '7d959347242311e94fcc60f761e9e373',
 	imguralbum = 'onzUR',
 	refreshTime = 1000 * 60 * 5,
-	albumData, albumRefreshed;
+	albumData = [], albumRefreshed;
 
 app.configure(function () {
 	app.set("views", __dirname);
@@ -29,7 +29,7 @@ app.get('/', function(req, resp){
 });
 
 function loadImgurAlbum (callback) {
-	if (!albumData || (albumRefreshed && Date.now() - albumRefreshed > refreshTime)) {
+	if (!albumRefreshed || Date.now() - albumRefreshed > refreshTime) {
 		var options = {
 		    host: 'api.imgur.com',
 		    port: 80,
@@ -44,21 +44,27 @@ function loadImgurAlbum (callback) {
 		    });
 
 		    res.on('end',function(){
-		        albumData = JSON.parse(data);
-		        albumRefreshed = Date.now();
+		    	try {
+			        albumData = JSON.parse(data).album.images;
+			        albumRefreshed = Date.now();
+			    } catch (error) {
+			    	console.log("Error parsing album data");
+			    }
 		        callback(albumData)
 		    })
 
 		});
 	} else {
-		callback(albumData)
+		if (callback) {
+			callback(albumData);
+		}
 	}
 }
 
 function processAlbum (album) {
 	var out = [];
-	for (var i in album.album.images) {
-		out.push(album.album.images[i].links.original);
+	for (var i in album) {
+		out.push(album[i].links.original);
 	}
 	return out;
 }
@@ -66,9 +72,17 @@ function processAlbum (album) {
 app.get('/img', function (req, resp) {
 	loadImgurAlbum(function (album) {
 		var urls = processAlbum(album),
-			random = urls[Math.floor(Math.random() * urls.length)];
+			random;
+		
 		resp.setHeader("Content-Type", "text/plain");
-		resp.end(random);
+		if (urls.length > 0) {
+			random = urls[Math.floor(Math.random() * urls.length)];
+			resp.end(random);
+		} else {
+			resp.statusCode = 500
+			resp.end("error")
+		}
+		
 	})
 })
 

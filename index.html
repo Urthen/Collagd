@@ -3,6 +3,8 @@
 		<title>COLLAGE'D!</title>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript">
+			var moarInterval, lessInterval;
+		
 			function sortImages(a, b) {
 				var ah = parseFloat($(a).attr('data-height')),
 					bh = parseFloat($(b).attr('data-height'));
@@ -59,7 +61,9 @@
 			function moar() {
 				if ($('body').height() > $(window).height()) return;
 
-				$.get('/img', function (data) {
+				$.ajax({
+					url: '/img', 
+					success: function (data) {
 					if ($("[src='" + data +"']").length == 0) {
 						var image = $("<img src='" + data + "' class='preloaded'/>")
 						$('body').append(image);
@@ -67,16 +71,21 @@
 					} else {
 						console.log("skipped", data)
 						moar();
+					}},
+					error: function () {
+						clearInterval(moarInterval);
+						clearInterval(lessInterval);
+						$('body').prepend("<h2>Oops... Something went wrong. Enjoy the GIFs while you can and refresh in a while.</h2>");
 					}
-				})
+				});
 			}
 			function less() {
 				var images = $('.imgrow'),
 					rand = Math.floor(Math.random() * images.length)
 				$(images[rand]).remove();
 			}
-			setInterval(moar, 500);
-			setInterval(less, 30000);
+			moarInterval = setInterval(moar, 500);
+			lessInterval = setInterval(less, 30000);
 		</script>
 		<style>
 			body {background: black; color: gray;}
