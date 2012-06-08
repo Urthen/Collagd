@@ -10,4 +10,6 @@ module.exports.connect = function (config) {
 	module.exports.db = new mongodb.Db(config.db.db, server_config, {});
 
 	mongoose.connect(uri);
+
+	console.log("Mongo connected to", uri)
 };
