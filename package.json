@@ -4,6 +4,13 @@
   , "private": true
   , "dependencies": {
       "express": ">= 2.5.8",
-      "html": ">= 0.0.1"
+      "mongodb": ">= 0.0.1",
+      "mongoose": ">= 2.6.0",
+      "express-mongoose": ">= 0.0.5",
+      "connect-mongodb": ">= 0.0.1",
+      "jade": ">= 0.0.1",
+      "yaml-config" : ">= 0.1.0",
+      "passport": ">= 0.1.8",
+      "passport-facebook": ">= 0.1.2"
   }
 }

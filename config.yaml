@@ -1,0 +1,23 @@
+development:
+  security:
+    salt: "giffy"
+  db:
+    hostname: "localhost"
+    db: "gifs-dev"
+    port: 27017
+staging:
+  security:
+    salt: "spiffy"
+  db:
+    hostname: "localhost"
+    db: "gifs-stg"
+    port: 27017
+production:
+  salt:
+    salt: "gliffy"
+  db:
+    hostname: "ds033767.mongolab.com"
+    db: "heroku_app5063852"
+    port: 33767
+    user: "heroku_app5063852:rk4vg5n5vtrhm6sgjm806rb8s8"
+
