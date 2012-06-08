@@ -1,4 +1,5 @@
 var express = require("express"),
+	connect = require("connect"),
 	MongoStore = require("connect-mongodb"),
 	db = require("./dbconnect").db,
 	passport = require("passport");
@@ -23,15 +24,15 @@ exports.boot = function (app, config) {
 			}
 		});
 		app.use(app.router);
+		app.use(express.static(__dirname + "/../static/"));
+		app.use(connect.compress());
 	});
 
 	app.configure('development', function(){
-		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	});
 
 	app.configure('production', function(){
-		app.use(gzippo.staticGzip(__dirname + '/../static/'));
 		app.use(express.errorHandler());
 		app.enable('view cache');
 	});
