@@ -1,0 +1,4 @@
+/db/*
+/logs/*
+*.jade
+/static/*

@@ -14,8 +14,8 @@ exports.boot = function (app, config) {
 		app.use(express.cookieParser());
 		app.use(express.session({ secret: config.security.salt, store: new MongoStore({db: db})}));
 		app.use(express.csrf());
-		//app.use(passport.initialize());
-		//app.use(passport.session());
+		app.use(passport.initialize());
+		app.use(passport.session());
 		app.dynamicHelpers({
 			token: function(req, res) {
 				return "pie"
@@ -26,12 +26,12 @@ exports.boot = function (app, config) {
 	});
 
 	app.configure('development', function(){
-		app.use(express.static(__dirname + "/../client/"));
+		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	});
 
 	app.configure('production', function(){
-		app.use(gzippo.staticGzip(__dirname + '/../client/'));
+		app.use(gzippo.staticGzip(__dirname + '/../static/'));
 		app.use(express.errorHandler());
 		app.enable('view cache');
 	});
