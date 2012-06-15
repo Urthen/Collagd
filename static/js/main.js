@@ -10,7 +10,8 @@ require.config({
 
     // Require.js plugins
     text: 'libs/require/text',
-    tmpl: 'libs/require/tmpl',
+    hbs: 'libs/require/hbs',
+    Handlebars: 'libs/require/Handlebars',
     order: 'libs/require/order',
 
     // Just a short cut so we can put our html outside the js dir

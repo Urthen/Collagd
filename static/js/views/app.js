@@ -2,7 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-], function($, _, Backbone){
+  'hbs!template/index'
+], function($, _, Backbone, indexTemplate){
   var AppView = Backbone.View.extend({
     el: '.container',
     initialize: function () {
@@ -17,15 +18,10 @@ define([
       var that = this;
     },
     render: function () {
-			var that = this;
+			var that = this,
+          user = $('body').attr('data-user');
       console.log('Rendering main.')
-
-      require(['views/collage'], function(CollagePage) {
-        var collagePage = new CollagePage;
-        console.log('rendering collage')
-        collagePage.render();
-      });
-
+      $(this.el).html(indexTemplate({user: user}))
 		} 
 	});
   return AppView;

@@ -1,59 +1,45 @@
 // Filename: router.js
 define([
-  'jquery',
-  'underscore',
-  'backbone'
-], function ($, _, Backbone) {
-  var AppRouter = Backbone.Router.extend({
-    routes: {
-      // Pages
-      /*'/modules': 'modules',	
-      '/optimize': 'optimize',
-      '/backbone/:section': 'backbone',
-      '/backbone': 'backbone',
-      '/manager': 'manager',
-      */
+	'jquery',
+	'underscore',
+	'backbone',
+	'views/collage'
+], function ($, _, Backbone, CollageView) {
+	var AppRouter = Backbone.Router.extend({
+		routes: {
+			// Pages
+			'/collage': 'collage',
 
-      // Default - catch all
-      '*actions': 'defaultAction'
-    }
-  });
+			// Default - catch all
+			'*actions': 'defaultAction'
+		}
+	});
 
-  var initialize = function(options){
-		var appView = options.appView;
-    var router = new AppRouter(options);
-    /*
-		router.on('route:optimize', function () {
-			require(['views/optimize/page'], function (OptimizePage) {
-				var optimizePage = Vm.create(appView, 'OptimizePage', OptimizePage);
-				optimizePage.render();
-			});
-		});*/
+	var initialize = function(options){
+		var appView = options.appView,
+			collageView = new CollageView(),
+			router = new AppRouter(options);
+
+		router.on('route:collage', function () {
+			console.log('showing collage')
+			collageView.render();
+		});
+
 		router.on('route:defaultAction', function (actions) {
-      appView.render()
+			appView.render();
 		});
-    /*
-		router.on('route:modules', function () {
-	   require(['views/modules/page'], function (ModulePage) {
-        var modulePage = Vm.create(appView, 'ModulesPage', ModulePage);
-        modulePage.render();
-      });	  	
-		});
-		router.on('route:backbone', function (section) {
-      require(['views/backbone/page'], function (BackbonePage) {
-        var backbonePage = Vm.create(appView, 'BackbonePage', BackbonePage, {section: section});
-        backbonePage.render();
-      });
-		});
-		router.on('route:manager', function () {
-			require(['views/manager/page'], function (ManagerPage) {
-				var managerPage = Vm.create(appView, 'ManagerPage', ManagerPage);
-				managerPage.render();
-			});
-		});*/
-    Backbone.history.start();
-  };
-  return {
-    initialize: initialize
-  };
+
+		router.bind('all', function (route, router) {
+			console.log(route)
+			if (route != 'route:collage') {
+				console.log("hiding collage")
+				collageView.hide();
+			}
+		})
+		
+		Backbone.history.start();
+	};
+	return {
+		initialize: initialize
+	};
 });

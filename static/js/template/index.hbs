@@ -1,0 +1,17 @@
+<h1>{{$ "title"}}</h1>
+
+<p>
+<a href="#/collage">View Collage!</a>
+</p>
+
+{{#if user}}
+<p>
+<label for="addgif">Suggest a GIF:</label>
+<input id="addgiftxt" name="addgiftxt"/><input type="button" id="addgifbtn" value="Add"/>
+</p>
+{{else}}
+<p>
+Connect with Facebook to submit images:
+<a href="/auth/facebook">Connect!</a>
+</p>
+{{/if}}

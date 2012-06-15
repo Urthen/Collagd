@@ -2,7 +2,8 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-], function($, _, Backbone){
+	'hbs!template/collage'
+], function($, _, Backbone, collageTemplate){
 
 	function sortImages(a, b) {
 		var ah = parseFloat($(a).attr('data-height')),
@@ -20,22 +21,30 @@ define([
 	var CollagePage = Backbone.View.extend({
 		el: '.container',
 		intervals: {
-			add: null,
 			remove: null
+		},
+		running: false,
+		images: [],
+
+		initialize: function () {
+			this.addImage = _.throttle(this.addImage, 1000)
+			_.bindAll(this, 'addImage', 'removeRow', 'reflow')
+			this.reflow = _.wrap(this.reflow, function(func) {
+				if ($(this)) $(this).attr('data-width', this.width).attr('data-height', this.height).removeClass('preloaded');
+				func();
+			})
 		},
 
 		reflow: function () {
-			console.log("reflow...")
-			if ($(this)) $(this).attr('data-width', this.width).attr('data-height', this.height).removeClass('preloaded')
-
 			var images = $('img:not(.preloaded)'),
-				$body = $('body');
+				$body = $('body'),
+				container = $(this.el).find('.gifs');
 				
 			images.sort(sortImages)
 			row = $("<span class='imgrow preloaded'></div>")
 			sumwidth = 0
-			$('body .imgrow').remove()
-			$body.append(row)
+			container.find('.imgrow').remove()
+			container.append(row)
 
 			images.each(function (index, image){
 				var $image = $(image);
@@ -62,49 +71,78 @@ define([
 					})
 					row.removeClass('preloaded');
 					row = $("<div class='imgrow preloaded'></div>");
-					$body.append(row);
+					container.append(row);
 					$('.header').remove();
 					sumwidth = parseFloat($image.attr('data-width'))
 				}
 				row.append(image);
-			})
+			});
+			this.addImage();
 		},
 
-		addImage: function () {
-			if ($('body').height() > $(window).height()) return;
-
+		loadMoreImages: function () {
+			console.log("Loading more images...")
 			var that = this;
-
 			$.ajax({
 				url: '/img', 
 				success: function (data) {
-				if ($("[src='" + data +"']").length == 0) {
-					var image = $("<img src='" + data + "' class='preloaded'/>")
-					$('body').append(image);
-					$('img').load(that.reflow)
-				} else {
-					console.log("skipped", data)
+					that.images = data.split(',');
 					that.addImage();
-				}},
+				},
 				error: function () {
-					clearInterval(that.intervals.add);
 					clearInterval(that.intervals.remove);
-					$('body').prepend("<h2>Oops... Something went wrong. Enjoy the GIFs while you can and refresh in a while.</h2>");
+					that.intervals.remove = null;
+					$('.error').removeClass('hidden')
 				}
 			});
+		},
+
+		addImage: function () {
+			if (!this.running || $('body').height() > $(window).height()) return;
+			var url;
+			for (var i = 0; i < 10; i++) {
+				if (this.images.length == 0) {
+					this.loadMoreImages();
+					break;
+				}
+				url = this.images.pop();
+				if ($("[src='" + url +"']").length == 0) {
+					var image = $("<img src='" + url + "' class='preloaded'/>")
+					$('body').append(image);
+					image.load(this.reflow);
+				}
+			}
+			if (!this.intervals.remove) {
+				this.intervals.remove = setInterval(this.removeRow, 30000);
+			}
 		},
 
 		removeRow: function () {
 			var images = $('.imgrow'),
 				rand = Math.floor(Math.random() * images.length)
-			$(images[rand]).remove();
+			if (images.length === 0) {
+				clearInterval(this.images.remove);
+				this.images.remove = null;
+			} else {
+				$(images[rand]).remove();
+				this.addImage();
+			}
 		},
 		render: function () {
-			_.bindAll(this, 'addImage', 'removeRow')
-
-			this.intervals.add = setInterval(this.addImage, 500);
-			this.intervals.remove = setInterval(this.removeRow, 30000);
+			this.running = true;
+			$(this.el).html(collageTemplate());
+			this.addImage();
+			$(window).resize(function() {
+				if (!this.running) return;
+				if ($('.imgrow').length > 0) {
+					this.addImage();
+				}
+			})
 		},
+		hide: function () {
+			clearInterval(this.images.remove);
+			this.running = false;
+		}
 
 	});
 	return CollagePage;

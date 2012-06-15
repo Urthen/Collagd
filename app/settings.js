@@ -18,20 +18,20 @@ exports.boot = function (app, config) {
 		app.use(passport.session());
 		app.dynamicHelpers({
 			token: function(req, res) {
-				return "pie"
 				return req.session._csrf;
 			}
 		});
 		app.use(app.router);
-		app.use(express.staticCache());
-		app.use(express.static(__dirname + "/../static/"));
 	});
 
 	app.configure('development', function(){
+		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	});
 
 	app.configure('production', function(){
+		app.use(express.staticCache());
+		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler());
 		app.enable('view cache');
 	});

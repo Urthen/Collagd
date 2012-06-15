@@ -44,6 +44,10 @@ function processAlbum (album) {
 	return out;
 }
 
+function shuffle(a, b) {
+	return Math.floor(Math.random() * 2) - 1;
+}
+
 module.exports = function(app){
 	app.get('/img', function (req, resp) {
 		loadImgurAlbum(function (album) {
@@ -52,8 +56,9 @@ module.exports = function(app){
 			
 			resp.setHeader("Content-Type", "text/plain");
 			if (urls.length > 0) {
-				random = urls[Math.floor(Math.random() * urls.length)];
-				resp.end(random);
+				urls.sort(shuffle);
+				random = urls.slice(0, 100);
+				resp.end(random.join(','));
 			} else {
 				resp.statusCode = 500;
 				resp.end("error");
