@@ -5,10 +5,6 @@ var express = require("express"),
 
 exports.boot = function (app, config) {
 
-	app.configure('production', function(){
-		app.use(express.staticCache());
-	});
-
 	app.configure(function () {
 		app.use(express.static(__dirname + "/../static/"));
 		app.set("views", __dirname + "/views");
@@ -27,14 +23,7 @@ exports.boot = function (app, config) {
 			}
 		});
 		app.use(app.router);
-	});
-
-	app.configure('development', function(){
 		app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	});
 
-	app.configure('production', function(){
-		app.use(express.errorHandler());
-		app.enable('view cache');
-	});
 };
