@@ -5,7 +5,12 @@ var express = require("express"),
 
 exports.boot = function (app, config) {
 
+	app.configure('production', function(){
+		app.use(express.staticCache());
+	}
+
 	app.configure(function () {
+		app.use(express.static(__dirname + "/../static/"));
 		app.set("views", __dirname + "/views");
 		app.set("view engine", "jade");
 		app.set("view options", {"layout": false});
@@ -25,14 +30,11 @@ exports.boot = function (app, config) {
 	});
 
 	app.configure('development', function(){
-		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	});
 
 	app.configure('production', function(){
-		//app.use(express.staticCache());
-		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler());
-		//app.enable('view cache');
+		app.enable('view cache');
 	});
 };
