@@ -1,7 +1,7 @@
 module.exports = function(app){
 	app.get('/', function(req, res){
 		var user = "";
-		console.log("User:", user)
+		console.log("User:", req.user)
 		if (req.user) {
 			user = req.user.fbid;
 		}

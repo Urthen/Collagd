@@ -30,7 +30,7 @@ exports.boot = function (app, config) {
 	});
 
 	app.configure('production', function(){
-		app.use(express.staticCache());
+		//app.use(express.staticCache());
 		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler());
 		//app.enable('view cache');
