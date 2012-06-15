@@ -4,7 +4,7 @@ var express = require("express"),
 	config = config_file.readConfig("./config.yaml"),
 	db_module = require("./app/dbconnect");
 
-db_module.connect(config);
+db_module.connect(config, express);
 
 var port = process.env.PORT || 5000;
 config.port = port;

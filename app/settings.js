@@ -1,5 +1,5 @@
 var express = require("express"),
-	MongoStore = require("connect-mongodb"),
+	MongoStore = require("connect-mongo"),
 	db = require("./dbconnect").db,
 	passport = require("passport");
 
@@ -13,7 +13,7 @@ exports.boot = function (app, config) {
 		app.use(express.bodyParser());
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
-		app.use(express.session({ secret: config.security.salt, store: new MongoStore({db: db})}));
+		app.use(express.session({ secret: config.security.salt, store: db}));
 		app.use(express.csrf());
 		app.use(passport.initialize());
 		app.use(passport.session());
