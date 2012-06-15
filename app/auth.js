@@ -9,7 +9,7 @@ exports.setup = function(config) {
 	passport.use(new FacebookStrategy({
 			clientID: "370217413033720",
 			clientSecret: "17d986cd0d6a3c72f39807b0299eae68",
-			callbackURL: "http://collage.fritbot.com" + port + "/auth/facebook/callback"
+			callbackURL: "http://quiet-mountain-4034.herokuapp.com" + port + "/auth/facebook/callback"
 		},
 		function(accessToken, refreshToken, profile, done) {
 			User.findOne({fbid: profile.id}, function(err, user) {
