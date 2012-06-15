@@ -13,7 +13,7 @@ exports.setup = function(config) {
 		},
 		function(accessToken, refreshToken, profile, done) {
 			User.findOne({fbid: profile.id}, function(err, user) {
-				console.log("authorize", user, profile)
+				console.log("authorize", user)
 				if (!user) {
 					user = new User();
 					user.fbid = profile.id;
