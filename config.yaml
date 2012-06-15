@@ -22,5 +22,6 @@ production:
     hostname: "ds033767.mongolab.com"
     db: "heroku_app5063852"
     port: 33767
-    user: "heroku_app5063852:rk4vg5n5vtrhm6sgjm806rb8s8"
+    username: "heroku_app5063852"
+    password: "rk4vg5n5vtrhm6sgjm806rb8s8"
 
