@@ -33,6 +33,6 @@ exports.boot = function (app, config) {
 		app.use(express.staticCache());
 		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler());
-		app.enable('view cache');
+		//app.enable('view cache');
 	});
 };
