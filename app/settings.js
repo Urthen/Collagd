@@ -7,7 +7,7 @@ exports.boot = function (app, config) {
 
 	app.configure('production', function(){
 		app.use(express.staticCache());
-	}
+	});
 
 	app.configure(function () {
 		app.use(express.static(__dirname + "/../static/"));

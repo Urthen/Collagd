@@ -53,7 +53,7 @@ module.exports = function(app){
 		loadImgurAlbum(function (album) {
 			var urls = processAlbum(album),
 				random;
-			
+			req.session = null;
 			resp.setHeader("Content-Type", "text/plain");
 			if (urls.length > 0) {
 				urls.sort(shuffle);

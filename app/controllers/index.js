@@ -6,7 +6,6 @@ module.exports = function(app){
 		if (req.user) {
 			user = req.user.fbid;
 		}
-		req.session = null;
 		res.render('index', {user: user});
 	});
 };
