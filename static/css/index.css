@@ -10,7 +10,9 @@ h1 {text-align: center; color: #99B;}
 .rightcol {float: right; border-left: 1px solid gray;}
 #submitmsg {min-height: 2em;}
 .connect_btn {background: url(/img/connect.png) no-repeat; display: block; width: 280px; height: 47px; text-indent: -9999px;}
-.view_btn {background: #222; border-radius: 5px; padding: 15px; font-size: 1.5em;}
+div .view_btn {background: #CCC; color: #222; border-radius: 5px; padding: 15px; font-size: 2em;}
+div .view_btn:hover {background: #FFF;}
+
 
 .example {font-size: 0.7em; color: #444; display: block; padding-top: 4px;}
 .example b {font-weight: bold; color: #888;}
@@ -18,3 +20,18 @@ h1 {text-align: center; color: #99B;}
 label {display: block}
 
 .footer {clear: both; padding-top: 50px; font-size: 0.8em; color: #444; text-align: center;}
+
+.finePrintBox {
+	position: absolute;
+	top: 10px;
+	width: 70%;
+	margin-left: 15%;
+	background: #CCC;
+	border-radius: 20px;
+	padding: 30px;
+	color: #222;
+	display: none;
+}
+
+.finePrintBox .close {float: right; color: white; background: black; padding: 3px 6px; display: block; border-radius: 20px;}
+.finePrintBox a {color: black; text-decoration: underline;}
