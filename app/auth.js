@@ -14,22 +14,19 @@ exports.setup = function(config) {
 		function(accessToken, refreshToken, profile, done) {
 			User.findOne({fbid: profile.id}, function(err, user) {
 				if (err) return done(err);
-				console.log("authorize", user)
 				if (!user) {
 					user = new User();
 					user.fbid = profile.id;
 					user.name = profile.displayName;
-					user.save()
-					console.log("Created new user", user)
+					user.save();
 				}
 				done(false, user);	
-			})
+			});
 		}
 	));
 
 	//Places the user into the session
 	passport.serializeUser(function(user, done) {
-		console.log("Serializing", user)
 		done(null, user.id);
 	});
 
@@ -37,8 +34,7 @@ exports.setup = function(config) {
 	passport.deserializeUser(function(id, done) {
 		User.findById(id, function(err, user) {
 			if (err) return done(err);
-			console.log("Deserialized", id, user);
 			done(null, user);
 		});
 	});
-}
+};

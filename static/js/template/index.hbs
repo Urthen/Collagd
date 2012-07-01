@@ -6,9 +6,14 @@
 
 {{#if user}}
 <p>
-<label for="addgif">Suggest a GIF:</label>
+<label for="addgiftxt">Suggest a GIF:</label>
 <input id="addgiftxt" name="addgiftxt"/><input type="button" id="addgifbtn" value="Add"/>
 </p>
+<p>
+<label for="addalbumtxt">Add an entire Imgur album:</label>
+<input id="addalbumtxt" name="addalbumtxt"/><input type="button" id="addalbumbtn" value="Add"/>
+</p>
+<p id="submitmsg"></p>
 {{else}}
 <p>
 Connect with Facebook to submit images:

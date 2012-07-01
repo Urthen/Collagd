@@ -1,0 +1,31 @@
+!!!
+html.no-hs(lang="en")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+		title Collag'd - Admin
+		meta(name="viewport", content="width=device-width,initial-scale=1")
+		meta(name="description", content="Automatic GIF Collaging")
+		link(rel="stylesheet", href="css/index.css")
+	body
+		if (!user)
+			p Sorry, you aren't an administrator.
+		else
+			if (!image)
+				p No new content to moderate.
+			else
+				form(action='/admin', method="POST")
+					input(type='hidden', name='id', value=image._id)
+					input(type='hidden', name='status', value="APPROVED")
+					input(type='hidden', name='csrf', value=token)
+					input(type='submit', value='Approve')
+				form(action='/admin', method="POST")
+					input(type='hidden', name='id', value=image._id)
+					input(type='hidden', name='status', value="REJECTED")
+					input(type='hidden', name='csrf', value=token)
+					input(type='submit', value='Reject')
+
+				p= image.url
+
+				img(src=image.url)
+				

@@ -25,6 +25,7 @@ require('./app/controllers/img')(app);
 require('./app/controllers/index')(app);
 require('./app/controllers/submit')(app);
 require('./app/controllers/login')(app);
+require('./app/controllers/admin')(app);
 
 // Good to go, brah
 app.listen(port, function () {

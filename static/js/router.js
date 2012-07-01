@@ -21,7 +21,6 @@ define([
 			router = new AppRouter(options);
 
 		router.on('route:collage', function () {
-			console.log('showing collage')
 			collageView.render();
 		});
 
@@ -30,9 +29,7 @@ define([
 		});
 
 		router.bind('all', function (route, router) {
-			console.log(route)
 			if (route != 'route:collage') {
-				console.log("hiding collage")
 				collageView.hide();
 			}
 		})

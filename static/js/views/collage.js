@@ -81,7 +81,6 @@ define([
 		},
 
 		loadMoreImages: function () {
-			console.log("Loading more images...")
 			var that = this;
 			$.ajax({
 				url: '/img', 

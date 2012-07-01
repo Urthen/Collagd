@@ -6,7 +6,6 @@ var express = require("express"),
 exports.boot = function (app, config) {
 
 	app.configure(function () {
-		app.use(express.static(__dirname + "/../static/"));
 		app.set("views", __dirname + "/views");
 		app.set("view engine", "jade");
 		app.set("view options", {"layout": false});
@@ -14,7 +13,7 @@ exports.boot = function (app, config) {
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
 		app.use(express.session({ secret: config.security.salt, store: db}));
-		app.use(express.csrf());
+		//app.use(express.csrf());
 		app.use(passport.initialize());
 		app.use(passport.session());
 		app.dynamicHelpers({
@@ -23,7 +22,16 @@ exports.boot = function (app, config) {
 			}
 		});
 		app.use(app.router);
+	});
+
+	app.configure('development', function(){
+		app.use(express.static(__dirname + "/../static/"));
 		app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+	});
+
+	app.configure('production', function(){
+		app.use(express.static(__dirname + "/../static/"));
+		app.use(express.errorHandler());
 	});
 
 };

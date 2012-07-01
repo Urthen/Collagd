@@ -21,5 +21,5 @@ module.exports.connect = function (config, express) {
 
 	mongoose.connect(uri);
 
-	console.log("Mongo connected to", uri)
+	console.log("Mongo connected to", uri);
 };

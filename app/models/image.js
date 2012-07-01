@@ -3,9 +3,10 @@ var mongoose = require('mongoose'),
 
 var ImageModel = new Schema({
 	url: String,
-	approved: Date,
-	submitted: {type : Date, default : Date.now},
+	status: {type: String, default: "SUBMITTED"},
+	moderated: Date,
+	submitted: {type: Date, default: Date.now},
 	submitter: String
-})
+});
 
 mongoose.model('Image', ImageModel);

@@ -14,14 +14,39 @@ define([
             xhr.setRequestHeader('X-CSRF-Token', window._csrf);
          }
       });
-
-      var that = this;
     },
     render: function () {
-			var that = this,
-          user = $('body').attr('data-user');
-      console.log('Rendering main.')
+			var user = $('body').attr('data-user');
       $(this.el).html(indexTemplate({user: user}))
+      $('#addgifbtn').click(function() {
+        $('#submitmsg').html("Submitting...");
+        $.ajax({
+          url: "/submit/image",
+          type: "POST",
+          data: {url: $('#addgiftxt').val()},
+          success: function(data) {
+            $('#submitmsg').html(data);
+          },
+          error: function() {
+            $('#submitmsg').html('Whoops, something went wrong.');
+          }
+        })
+      });
+
+      $('#addalbumbtn').click(function() {
+        $('#submitmsg').html("Submitting...");
+        $.ajax({
+          url: "/submit/album",
+          type: "POST",
+          data: {albumid: $('#addalbumtxt').val()},
+          success: function(data) {
+            $('#submitmsg').html(data);
+          },
+          error: function() {
+            $('#submitmsg').html('Whoops, something went wrong.');
+          }
+        })
+      })
 		} 
 	});
   return AppView;
