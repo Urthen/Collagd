@@ -11,7 +11,6 @@ function getImages(done) {
 			done([]);
 			return;
 		}
-		console.log(images);
 		done(images.map(function (img) {
 			return img.url;
 		}));
