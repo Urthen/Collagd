@@ -16,3 +16,5 @@ h1 {text-align: center; color: #99B;}
 .example b {font-weight: bold; color: #888;}
 
 label {display: block}
+
+.footer {clear: both; padding-top: 50px; font-size: 0.8em; color: #444; text-align: center;}
