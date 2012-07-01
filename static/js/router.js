@@ -10,6 +10,7 @@ define([
 		routes: {
 			// Pages
 			'/collage': 'collage',
+			'/collage/': 'collage',
 			'/fineprint': 'fineprint',
 
 			// Default - catch all
