@@ -1,22 +1,27 @@
 <h1>{{$ "title"}}</h1>
 
-<p>
-<a href="#/collage">View Collage!</a>
-</p>
+<div class="rightcol col">
+	<h2>Submit your GIFs!</h2>
+	{{#if user}}
+	<p id="submitmsg"> </p>
+	<p>
+		<label for="addgiftxt">Suggest a single GIF:</label>
+		<input id="addgiftxt" name="addgiftxt"/><input type="button" id="addgifbtn" value="Add"/>
+		<span class="example">Example: <b>http://i.imgur.com/Xd9ER.gif</b></span>
+	</p>
+	<p>
+		<label for="addalbumtxt">Add an entire Imgur album (by ID):</label>
+		<input id="addalbumtxt" name="addalbumtxt"/><input type="button" id="addalbumbtn" value="Add"/>
+		<span class="example">Example: <b>onzUR</b> from http://imgur.com/a/<b>onzUR</b>#0</span>
+	</p>
+	{{else}}
+	<p>Before you submit images, please login!</p>
+	<p><a href="/auth/facebook" class="connect_btn">Connect!</a></p>
+	{{/if}}
+</div>
 
-{{#if user}}
-<p>
-<label for="addgiftxt">Suggest a GIF:</label>
-<input id="addgiftxt" name="addgiftxt"/><input type="button" id="addgifbtn" value="Add"/>
-</p>
-<p>
-<label for="addalbumtxt">Add an entire Imgur album:</label>
-<input id="addalbumtxt" name="addalbumtxt"/><input type="button" id="addalbumbtn" value="Add"/>
-</p>
-<p id="submitmsg"></p>
-{{else}}
-<p>
-Connect with Facebook to submit images:
-<a href="/auth/facebook">Connect!</a>
-</p>
-{{/if}}
+<div class="leftcol col">
+	<a href="#/collage" class="view_btn">View Collage!</a>
+	<p>Collage will slowly refresh content if you leave it alone. Impromptu screensaver!</p>
+	<p>All images are moderated for content and should contain no NSFW imagery. Text, on the other hand, is very likely to be offensive.</p>
+</div>

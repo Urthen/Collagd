@@ -2,3 +2,17 @@
 body {background: black; color: gray;}
 .preloaded {display: none;}
 .imgrow {margin-left: -50%; left: 50%; position: relative;}
+
+h1 {text-align: center; color: #99B;}
+
+.col {width: 50%; text-align: center;}
+.col p {width: 50%; padding-left: 25%; padding-top: 15px; text-align: left;}
+.rightcol {float: right; border-left: 1px solid gray;}
+#submitmsg {min-height: 2em;}
+.connect_btn {background: url(/img/connect.png) no-repeat; display: block; width: 280px; height: 47px; text-indent: -9999px;}
+.view_btn {background: #222; border-radius: 5px; padding: 15px; font-size: 1.5em;}
+
+.example {font-size: 0.7em; color: #444; display: block; padding-top: 4px;}
+.example b {font-weight: bold; color: #888;}
+
+label {display: block}

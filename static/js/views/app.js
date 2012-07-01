@@ -25,6 +25,7 @@ define([
           type: "POST",
           data: {url: $('#addgiftxt').val()},
           success: function(data) {
+            $('#addgiftxt').val('')
             $('#submitmsg').html(data);
           },
           error: function() {
@@ -40,6 +41,7 @@ define([
           type: "POST",
           data: {albumid: $('#addalbumtxt').val()},
           success: function(data) {
+            $('#addalbumtxt').val('')
             $('#submitmsg').html(data);
           },
           error: function() {
