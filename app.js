@@ -8,6 +8,16 @@ var config = {},
 config.port = port;
 config.env = process.env.NODE_ENV;
 config.salt = process.env.SALT;
+config.auth = {
+	fb: {
+		id: process.env.FB_APP_ID,
+		secret: process.env.FB_APP_SECRET
+	},
+	twitter: {
+		key: process.env.TW_APP_KEY,
+		secret: process.env.TW_APP_SECRET
+	}
+}
 config.db = {
 	hostname: process.env.DB_HOST,
 	db: process.env.DB_DB,

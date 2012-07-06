@@ -9,7 +9,9 @@ h1 {text-align: center; color: #99B;}
 .col p {width: 50%; padding-left: 25%; padding-top: 15px; text-align: left;}
 .rightcol {float: right; border-left: 1px solid gray;}
 #submitmsg {min-height: 2em;}
-.connect_btn {background: url(/img/connect.png) no-repeat; display: block; width: 280px; height: 47px; text-indent: -9999px;}
+.connect_btn {position: relative; display: block; width: 150px; height: 22px; text-indent: -9999px; left: 50%; margin-left: -75px; margin-bottom: 5px;}
+.facebook {background: url(/img/signin_facebook.png) no-repeat;}
+.twitter {background: url(/img/signin_twitter.png) no-repeat;}
 div .view_btn {background: #CCC; color: #222; border-radius: 5px; padding: 15px; font-size: 2em;}
 div .view_btn:hover {background: #FFF;}
 
