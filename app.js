@@ -1,13 +1,22 @@
 var express = require("express"),
 	fs = require("fs"),
-	config_file = require("yaml-config"),
-	config = config_file.readConfig("./config.yaml"),
 	db_module = require("./app/dbconnect");
 
-db_module.connect(config, express);
+var config = {},
+	port = process.env.PORT || 5000;
 
-var port = process.env.PORT || 5000;
 config.port = port;
+config.env = process.env.NODE_ENV;
+config.salt = process.env.SALT;
+config.db = {
+	hostname: process.env.DB_HOST,
+	db: process.env.DB_DB,
+	port: process.env.DB_PORT,
+	username: process.env.DB_USER,
+	password: process.env.DB_PASSWORD
+};
+
+db_module.connect(config, express);
 
 // Setup Express Application
 var app = express.createServer();

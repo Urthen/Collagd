@@ -4,7 +4,7 @@ var passport = require('passport'),
 	User = mongoose.model('User');
 
 exports.setup = function(config) {
-	var port = config.needsPort ? ':' + config.port : '';
+	var port = config.env != 'production' ? ':' + config.port : '';
 
 	passport.use(new FacebookStrategy({
 			clientID: "370217413033720",

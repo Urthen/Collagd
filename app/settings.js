@@ -12,7 +12,7 @@ exports.boot = function (app, config) {
 		app.use(express.bodyParser());
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
-		app.use(express.session({ secret: config.security.salt, store: db}));
+		app.use(express.session({ secret: config.salt, store: db}));
 		//app.use(express.csrf());
 		app.use(passport.initialize());
 		app.use(passport.session());

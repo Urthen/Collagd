@@ -5,3 +5,4 @@ token
 *.pid
 logs
 db
+*.env

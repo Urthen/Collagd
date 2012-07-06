@@ -8,14 +8,14 @@ module.exports.connect = function (config, express) {
 		dbconf = {
 			db: config.db.db,
 			host: config.db.hostname,
-			port: config.db.port
+			port: parseInt(config.db.port)
 		};
 
 	if (config.db.username) {
 		dbconf.username = config.db.username;
 		dbconf.password = config.db.password;
 	}
-	
+
 	module.exports.db = new mongodb(dbconf);
 	
 

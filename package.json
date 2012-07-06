@@ -12,7 +12,6 @@
       "express-mongoose": ">= 0.0.5",
       "connect-mongo": ">= 0.0.1",
       "jade": ">= 0.0.1",
-      "yaml-config" : ">= 0.1.0",
       "passport": ">= 0.1.8",
       "passport-facebook": ">= 0.1.2"
   }
